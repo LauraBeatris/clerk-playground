@@ -4,7 +4,7 @@ import Link from "next/link";
 export default function Page() {
   const headersList = headers();
 
-  const hello = headersList.get("hello-world");
+  const hello = headersList.get("hello-world-protected");
 
   return (
     <section className="h-screen w-screen flex justify-center items-center flex-col">

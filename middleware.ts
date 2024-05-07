@@ -6,7 +6,7 @@ const isProtectedRoute = createRouteMatcher(["/dashboard(.*)"]);
 export default clerkMiddleware((auth, request) => {
   if (!isProtectedRoute(request)) {
     const requestHeaders = new Headers(request.headers);
-    requestHeaders.set("hello-world", "Hello");
+    requestHeaders.set("hello-world-public", "Hello from public route");
 
     const response = NextResponse.next({
       request: {
@@ -17,6 +17,17 @@ export default clerkMiddleware((auth, request) => {
     return response;
   } else {
     auth().protect();
+
+    const requestHeaders = new Headers(request.headers);
+    requestHeaders.set("hello-world-protected", "Hello from protected route");
+
+    const response = NextResponse.next({
+      request: {
+        headers: requestHeaders,
+      },
+    });
+
+    return response;
   }
 });
 
